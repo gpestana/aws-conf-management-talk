@@ -8,7 +8,8 @@ resource "aws_ecs_service" "foo" {
 }
 
 resource "aws_ecs_task_definition" "foo" {
-  family                = "foo"
+  family = "foo"
+
   container_definitions = <<DEFINITION
 [
   {
@@ -18,13 +19,18 @@ resource "aws_ecs_task_definition" "foo" {
     "image": "${var.foo_image}",
     "memory": 128,
     "memoryReservation": 64,
-    "name": "foo"
+    "name": "foo",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "${var.region}",
+        "awslogs-group": "${aws_cloudwatch_log_group.services.name}"
+      }
+    }
   }
 ]
 DEFINITION
 }
-
-
 
 # bar service and task definition
 
@@ -36,7 +42,8 @@ resource "aws_ecs_service" "bar" {
 }
 
 resource "aws_ecs_task_definition" "bar" {
-  family                = "bar"
+  family = "bar"
+
   container_definitions = <<DEFINITION
 [
   {
@@ -46,10 +53,15 @@ resource "aws_ecs_task_definition" "bar" {
     "image": "${var.bar_image}",
     "memory": 128,
     "memoryReservation": 64,
-    "name": "bar"
+    "name": "bar",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "${var.region}",
+        "awslogs-group": "${aws_cloudwatch_log_group.services.name}"
+      }
+    }
   }
 ]
 DEFINITION
 }
-
-

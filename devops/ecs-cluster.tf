@@ -2,6 +2,9 @@ resource "aws_ecs_cluster" "ecs-cluster" {
   name = "ecs-cluster"
 }
 
+resource "aws_ecr_repository" "ecr" {
+  name = "ec-registry"
+}
 
 # IAM and roles
 
@@ -33,18 +36,16 @@ resource "aws_iam_instance_profile" "container-instance" {
   role = "${aws_iam_role.container-instance-ec2.name}"
 }
 
-
-
 # Static container instance
 
 resource "aws_instance" "container" {
   ami           = "${var.ecs-ami}"
   instance_type = "t2.micro"
-	user_data = <<USERDATA
+
+  user_data = <<USERDATA
 #!/bin/bash
 echo ECS_CLUSTER=ecs-cluster >> /etc/ecs/ecs.config
 USERDATA
 
-	iam_instance_profile = "${aws_iam_instance_profile.container-instance.name}"
-
+  iam_instance_profile = "${aws_iam_instance_profile.container-instance.name}"
 }
