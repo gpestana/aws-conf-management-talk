@@ -1,6 +1,10 @@
 FROM node:alpine
 
-COPY ./src /src
-WORKDIR /src
+RUN mkdir /project
+COPY . /project
 
-CMD [ "node", "index.js" ]
+WORKDIR /project
+
+RUN npm install
+
+ENTRYPOINT node index.js

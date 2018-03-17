@@ -6,6 +6,13 @@ AWS_REGION=eu-west-1
 REPO_NAMESPACE=ec-registry
 ECR_REPO=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAMESPACE}
 
+build:
+	docker build -t foo . && \
+		docker run --name foo foo &
+
+destroy:
+	docker rm -f foo
+
 docker: docker-build-tag docker-push
 
 ecr-login:

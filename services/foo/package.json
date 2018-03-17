@@ -1,0 +1,15 @@
+{
+  "name": "foo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gpestana",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.210.0",
+    "sha1": "^1.1.1"
+  }
+}

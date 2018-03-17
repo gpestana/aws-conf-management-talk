@@ -1,2 +1,4 @@
 devops/configs/*
 .terraform/
+config.json
+node_modules
