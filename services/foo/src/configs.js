@@ -25,13 +25,23 @@ module.exports = (entrypointFn, configsChangedFn, opts) => {
 		() => checkChanges(s3, bucket, serviceId, configsChangedFn), 
 	interval)
 	
-	// loads configurations and starts entrypoiny
-	// ...
-	entrypointFn({conf:"example"})
+	// loads configurations and calls entrypoint callback
+	const params = {
+  	Bucket: bucket,
+  	Key: `${serviceId}/env.json`
+ 	};
+
+  s3.getObject(params, function(err, data) {
+		if (err) {
+			console.log(err, err.stack)
+			process.exit(err)
+		}
+		const configs = JSON.parse(data.Body.toString('utf-8').substr(1))
+		entrypointFn(configs)
+	})
 }
 
 const checkChanges = (s3, bucket, serviceId, cb) => {
-
 	const listParams = {
   	Bucket: bucket,
   	MaxKeys: 100,
