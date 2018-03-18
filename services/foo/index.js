@@ -6,15 +6,15 @@ console.log("Hello, I'm Foo. And you?")
 
 // Function called when configurations change
 const configsChangedFn = () =>  {
-	console.log("Configuration has changed, restarting container")
+	console.log(">> Configuration has changed, killing container!")
 	process.exit()
 }
 
 // Service entrypoint
 const entrypoint = confs => {
-	console.log("Configurations:")
+	console.log(">> Configurations:")
 	console.log(confs)
-	console.log("Service bootstrapped. Doing some work now..")
+	console.log(">> Service bootstrapped. Doing some work now..")
 }
 
  /*

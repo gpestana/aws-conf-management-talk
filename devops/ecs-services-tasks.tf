@@ -10,13 +10,15 @@ resource "aws_ecs_service" "foo" {
 resource "aws_ecs_task_definition" "foo" {
   family = "foo"
 
+  task_role_arn = "${aws_iam_role.task-confs-read-role.arn}"
+
   container_definitions = <<DEFINITION
 [
   {
     "cpu": 128,
     "environment": [],
     "essential": true,
-    "image": "${var.foo_image}",
+    "image": "494917051385.dkr.ecr.eu-west-1.amazonaws.com/ec-registry:${var.foo_image}",
     "memory": 128,
     "memoryReservation": 64,
     "name": "foo",
@@ -54,7 +56,7 @@ resource "aws_ecs_task_definition" "bar" {
     "cpu": 128,
     "environment": [],
     "essential": true,
-    "image": "${var.bar_image}",
+    "image": "494917051385.dkr.ecr.eu-west-1.amazonaws.com/ec-registry:${var.bar_image}",
     "memory": 128,
     "memoryReservation": 64,
     "name": "bar",

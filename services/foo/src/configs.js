@@ -36,8 +36,6 @@ module.exports = (entrypointFn, configsChangedFn, opts) => {
 			console.log(err, err.stack)
 			process.exit(err)
 		}
-		console.log(params)
-		console.log(data)
 		const configs = JSON.parse(data.Body.toString('utf-8'))
 		entrypointFn(configs)
 	})
