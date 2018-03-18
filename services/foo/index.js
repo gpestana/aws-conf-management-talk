@@ -2,6 +2,8 @@ const initConfig = require("./src/configs")
 
 console.log("Hello, I'm Foo. And you?")
 
+
+
 // Function called when configurations change
 const configsChangedFn = () =>  {
 	console.log("Configuration has changed, restarting container")

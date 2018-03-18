@@ -20,6 +20,10 @@ resource "aws_ecs_task_definition" "foo" {
     "memory": 128,
     "memoryReservation": 64,
     "name": "foo",
+		"healthCheck": {
+			"command": [ "CMD-SHELL", "curl -f http://localhost/ || exit 1" ],
+			"interval": 10
+		},
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
