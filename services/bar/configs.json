@@ -1,0 +1,5 @@
+{
+	"polling_interval": 3,
+	"bucket": "gpestana-conf",
+	"key": "bar/env.json"
+}

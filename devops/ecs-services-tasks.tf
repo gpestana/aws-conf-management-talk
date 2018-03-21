@@ -30,7 +30,8 @@ resource "aws_ecs_task_definition" "foo" {
       "logDriver": "awslogs",
       "options": {
         "awslogs-region": "${var.region}",
-        "awslogs-group": "${aws_cloudwatch_log_group.services.name}"
+        "awslogs-group": "${aws_cloudwatch_log_group.services.name}",
+				"awslogs-stream-prefix": "foo"
       }
     }
   }
@@ -50,6 +51,8 @@ resource "aws_ecs_service" "bar" {
 resource "aws_ecs_task_definition" "bar" {
   family = "bar"
 
+  task_role_arn = "${aws_iam_role.task-confs-read-role.arn}"
+
   container_definitions = <<DEFINITION
 [
   {
@@ -64,7 +67,8 @@ resource "aws_ecs_task_definition" "bar" {
       "logDriver": "awslogs",
       "options": {
         "awslogs-region": "${var.region}",
-        "awslogs-group": "${aws_cloudwatch_log_group.services.name}"
+        "awslogs-group": "${aws_cloudwatch_log_group.services.name}",
+				"awslogs-stream-prefix": "bar"
       }
     }
   }

@@ -1,6 +1,12 @@
-FROM node:alpine
+FROM golang:1.9
 
-COPY ./src /src
-WORKDIR /src
+RUN apt-get update
+RUN apt-get install -y nodejs
 
-CMD [ "node", "index.js" ]
+COPY . /app
+WORKDIR /app
+
+RUN go get github.com/gpestana/envaws
+RUN go install github.com/gpestana/envaws
+
+ENTRYPOINT envaws -conf configs.json -command "./app.sh"
